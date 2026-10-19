@@ -1,0 +1,9 @@
+streamlit
+fastapi
+uvicorn
+python-multipart
+requests
+python-dotenv
+google-generativeai
+pillow
+reportlab

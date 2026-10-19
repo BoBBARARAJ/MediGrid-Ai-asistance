@@ -1,0 +1,239 @@
+### 🎤 Interview Answer — MediGrid AI
+
+**“My project is MediGrid AI, an AI-powered prescription assistant.**
+
+The main purpose of this project is to help users understand and manage their prescription information.
+
+I built the frontend using **Streamlit** and the backend using **FastAPI**. I used **Google Gemini AI** to analyze prescription images and extract information such as the patient name, doctor name, medicine name, dosage, frequency, and duration.
+
+I used **SQLite** to store prescription information and provide a prescription history feature.
+
+The application also includes a **medicine warning system**, **pharmacy finder**, **location feature**, **AI chatbot**, and **PDF report generation**.
+
+The basic workflow is:
+
+**User uploads prescription → Streamlit sends the image to FastAPI → Gemini analyzes the image → prescription details are extracted → data can be saved in SQLite → user can view history, warnings, pharmacies, chatbot responses, and generate a PDF report.**
+
+Through this project, I learned how to integrate **Generative AI with FastAPI, Streamlit, databases, APIs, and Python** into one complete application.”**
+
+
+If they ask: “What was your role?”
+**“I worked on the complete application, including the Streamlit frontend, FastAPI backend, Gemini AI integration, SQLite database, prescription extraction, chatbot, warning system, pharmacy feature, and PDF generation.”**
+
+
+If they ask: “What was the biggest challenge?”
+**“The main challenge was integrating different components together. For example, the Streamlit frontend had to communicate correctly with the FastAPI backend, and the Gemini response had to be converted into structured prescription data. I solved this by creating separate Python modules for each feature and connecting them through FastAPI endpoints.”**
+
+MediGrid AI — Steps Completed
+
+Create project folder
+
+MediGridAI
+
+Create virtual environment
+
+python -m venv medical
+
+Activate virtual environment
+
+medical\Scripts\activate
+
+Create these Python files
+
+app.py
+main.py
+database.py
+prescription_reader.py
+location.py
+pharmacy.py
+medigrid_warnings.py
+chatbot.py
+pdf_report.py
+Create requirements.txt
+
+Install packages
+
+pip install -r requirements.txt
+
+Create .env
+
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+
+Create SQLite database
+
+python database.py
+
+Run FastAPI — Terminal 1
+
+python -m uvicorn main:app --reload
+Run Streamlit — Terminal 2
+streamlit run app.py
+Upload prescription image
+Analyze prescription using Gemini AI
+Display extracted details
+Patient Name
+Doctor Name
+Medicine
+Dosage
+Frequency
+Duration
+Save prescription to SQLite
+View prescription history
+Find pharmacies and show Google Maps location
+Check medicine warnings
+Use AI chatbot
+Generate and download PDF prescription report
+Test chatbot
+what is diagnosis
+what is python
+Confirmed chatbot working
+200 OK
+
+MediGrid AI — Interview Questions & Answers
+
+1. Tell me about your MediGrid AI project.
+
+“MediGrid AI is an AI-powered prescription assistant. It allows users to upload a prescription image, uses Google Gemini to extract patient, doctor, and medicine details, and provides features like prescription history, medicine warnings, pharmacy information, chatbot assistance, and PDF report generation.”
+
+2. Why did you choose this project?
+
+“I chose this project because prescription information can sometimes be difficult to read and manage. I wanted to build an application that uses Generative AI to extract and organize this information in a simple way.”
+
+3. What problem does MediGrid AI solve?
+
+“It helps users convert prescription images into structured information and manage that information through history, warnings, and reports.”
+
+4. What technologies did you use?
+
+“I used Python, Streamlit, FastAPI, Google Gemini AI, SQLite, ReportLab, Requests, Pillow, Uvicorn, and python-dotenv.”
+
+5. Why did you use Streamlit?
+
+“I used Streamlit because it allows me to quickly build an interactive Python-based web interface without developing a separate frontend using HTML, CSS, and JavaScript.”
+
+6. Why did you use FastAPI?
+
+“I used FastAPI to create the backend API and separate the frontend from the application logic. Streamlit sends requests to FastAPI, and FastAPI processes those requests.”
+
+7. Why did you use Google Gemini AI?
+
+“I used Gemini because it can process images and understand text from prescription images, including handwritten or printed medicine information.”
+
+8. How does prescription image analysis work?
+
+“The user uploads an image in Streamlit. Streamlit sends the image to the FastAPI /read_prescription endpoint. FastAPI sends the image to Gemini with a structured prompt. Gemini returns the prescription information as JSON, which is displayed in Streamlit.”
+
+9. How does Gemini extract medicine details?
+
+“I provide Gemini with the prescription image and a prompt specifying the fields I need, such as medicine name, dosage, frequency, and duration. I then convert the response into JSON.”
+
+10. What information do you extract?
+
+“I extract patient name, doctor name, medicine name, dosage, frequency, and duration.”
+
+11. How does Streamlit communicate with FastAPI?
+
+“I use the Python Requests library. Streamlit sends HTTP GET and POST requests to FastAPI endpoints running on 127.0.0.1:8000.”
+
+12. What API endpoints did you create?
+
+“I created endpoints for reading prescriptions, saving prescriptions, retrieving history, getting location, finding pharmacies, checking warnings, chatbot communication, and generating PDF reports.”
+
+13. Why did you use SQLite?
+
+“I used SQLite because it is lightweight, serverless, easy to integrate with Python, and suitable for storing the prescription history in this project.”
+
+14. How do you save prescription data?
+
+“After Gemini extracts the prescription details, the user clicks Save Prescription. Streamlit sends the JSON data to the FastAPI /save_prescription endpoint, which stores the medicine information in the SQLite database.”
+
+15. How does prescription history work?
+
+“The /get_prescriptions FastAPI endpoint retrieves saved records from SQLite. Streamlit displays those records under the History section.”
+
+16. How does the medicine warning system work?
+
+“The application sends the extracted medicines to the warning endpoint. The warning module checks the medicine names against predefined warning rules and displays the relevant warnings.”
+
+17. How does the pharmacy finder work?
+
+“The pharmacy module provides pharmacy information along with latitude and longitude. The Streamlit application displays the pharmacies and provides a Google Maps link.”
+
+18. How does Google Maps integration work?
+
+“I generate a Google Maps search URL using the pharmacy's latitude and longitude. When the user clicks the link, Google Maps opens that location.”
+
+19. How does your chatbot work?
+
+“The user enters a question in Streamlit. The question is sent to the FastAPI /chat endpoint. FastAPI passes it to Gemini, and the generated response is returned to Streamlit.”
+
+20. How do you handle the Gemini API key?
+
+“I store the API key in a .env file and load it using python-dotenv. I don't hard-code the API key directly into the application code.”
+
+21. Why did you use a .env file?
+
+“It keeps sensitive configuration such as API keys separate from the source code and helps prevent accidentally exposing credentials in GitHub.”
+
+22. How do you generate the PDF report?
+
+“I use the ReportLab library. The extracted patient, doctor, and medicine information is written into a PDF file, which the user can download.”
+
+23. What happens if the uploaded image is not a prescription?
+
+“Gemini may identify that the document doesn't contain prescription information. My application displays the extracted result, and if medicines aren't detected, it shows that no medicines were found.”
+
+24. What happens if Gemini API fails?
+
+“I use exception handling in the backend. If an error occurs, FastAPI returns the error information, and Streamlit displays it instead of crashing the application.”
+
+25. How do you handle FastAPI errors?
+
+“I check the HTTP response status code in Streamlit. If the response isn't successful, I display the FastAPI error response to the user.”
+
+26. What challenges did you face?
+
+“The main challenges were connecting Streamlit with FastAPI, handling Gemini API responses, managing API keys, storing extracted data in SQLite, and handling errors between the frontend and backend.”
+
+27. What errors did you face?
+
+“I faced FastAPI connection errors, missing packages, Gemini model errors, JSON response errors, and PDF file path issues.”
+
+28. How did you solve the FastAPI connection error?
+
+“The error occurred because the FastAPI server wasn't running. I solved it by starting the backend using Uvicorn before running and testing the Streamlit application.”
+
+29. How did you solve the Gemini model error?
+
+“I checked the model availability and updated the model configuration in my Gemini integration to use the model supported by my API environment.”
+
+30. How did you solve the PDF error?
+
+“The problem was that the PDF filename returned from the backend wasn't being handled correctly. I updated the PDF function to save the file and return its absolute path, and added checks before opening the file.”
+
+31. Explain the complete workflow.
+
+“The workflow starts when the user uploads a prescription image. Streamlit sends it to FastAPI. FastAPI sends the image to Gemini. Gemini extracts the prescription details and returns structured JSON. The user can then save the data to SQLite, view history, check warnings, find pharmacies, ask the chatbot questions, and generate a PDF report.”
+
+32. What did you personally implement?
+
+“I worked on the complete application, including the Streamlit interface, FastAPI backend, Gemini integration, SQLite database, prescription extraction, warning system, pharmacy feature, chatbot, and PDF generation.”
+
+33. What did you learn from this project?
+
+“I learned how to integrate Generative AI with a real application. I also learned API development using FastAPI, frontend development using Streamlit, database operations with SQLite, environment variable management, error handling, and connecting multiple components together.”
+
+34. What improvements would you make in the future?
+
+“I would improve prescription accuracy, add user authentication, use a more advanced medicine database, improve pharmacy location accuracy, add secure cloud deployment, and implement stronger validation and security.”
+
+35. How can this project be deployed?
+
+“The Streamlit frontend and FastAPI backend can be deployed on cloud platforms. The database can also be migrated from SQLite to a production database such as PostgreSQL, and the API keys can be stored securely using environment variables or a cloud secret manager.”
+
+
+uvicorn main:app --reload
+
+docker build -t medigrid-api .
+
+docker run --env-file .env -p 8000:8000 medigrid-api
